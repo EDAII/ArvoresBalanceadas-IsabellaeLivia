@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Estoque AVL + Rubro-Negra — Visual e Completo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div
+        style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#06b6d4);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px">
+        IL</div>
+      <div>
+        <h1>Sistema de Estoque</h1>
+    
+      </div>
+    </header>
+
+    <div class="layout">
+      <div class="card">
+        <h3 style="margin-top:0">Controle do Estoque</h3>
+
+        <div class="field">
+          <label class="small">Nome do produto</label>
+          <input id="name" placeholder="Ex: Camiseta" type="text" />
+        </div>
+
+        <div class="field" style="display:flex;gap:8px">
+          <div style="flex:1">
+            <label class="small">Preço (R$)</label>
+            <input id="price" placeholder="Ex: 29.90" type="number" step="0.01" />
+          </div>
+          <div style="width:120px">
+            <label class="small">Quantidade</label>
+            <input id="qty" placeholder="Ex: 10" type="number" />
+          </div>
+        </div>
+
+        <div class="controls" style="margin-top:8px">
+          <button id="addBtn" class="btn">Adicionar / Atualizar</button>
+          <button id="removeBtn" class="btn ghost">Remover</button>
+        </div>
+
+        <div style="margin-top:12px">
+          <label class="small">Buscar por nome</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <input id="searchName" placeholder="ex: Meias" type="text" />
+            <button id="searchBtn" class="btn ghost">Buscar</button>
+          </div>
+          <div id="searchRes" class="small" style="margin-top:8px"></div>
+        </div>
+
+        <hr style="border:none;border-top:1px solid rgba(255,255,255,0.03);margin:12px 0">
+
+        <div>
+          <label class="small">Top N por quantidade</label>
+          <select id="topN" style="margin-top:6px">
+            <option>5</option>
+            <option>10</option>
+            <option>20</option>
+            <option>50</option>
+          </select>
+          <div class="controls" style="margin-top:8px">
+            <button id="listAVL" class="btn">Listar (AVL)</button>
+            <button id="listRBT" class="btn">Top (RBT)</button>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <label class="small">Import / Export</label>
+          <div style="display:flex;gap:8px;margin-top:6px">
+            <button id="exportBtn" class="btn ghost">Exportar JSON</button>
+            <button id="importBtn" class="btn ghost">Importar (prompt)</button>
+          </div>
+        </div>
+
+        <div class="metrics" id="quickMetrics" style="margin-top:12px"></div>
+
+      
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div class="muted">Fonte de verdade</div>
+            <h2 style="margin:4px 0 0 0">Produtos cadastrados</h2>
+          </div>
+
+          <div style="text-align:right">
+            <div class="small">Registros: <span id="count">0</span></div>
+            <div style="margin-top:8px" class="small">Útima ação: <span id="lastAction">—</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px">
+          <div id="productTable"
+            style="max-height:170px;overflow:auto;border-radius:8px;padding:6px;background:rgba(255,255,255,0.01)">
+          </div>
+        </div>
+
+        <div class="visuals">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong>AVL — ordem alfabética (nome)</strong>
+                <div class="small">inorder traversal</div>
+              </div>
+              <div class="small">Altura: <span id="avlHeight">0</span> • Rotações: <span id="avlRot">0</span></div>
+            </div>
+            <div class="canvasBox" id="avlBox">
+              <svg id="avlSvg" width="100%" height="340" viewBox="0 0 1200 360"
+                preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+          </div>
+
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><strong>Rubro-Negra — top por quantidade</strong>
+                <div class="small">desc by qty (tiebreak name)</div>
+              </div>
+              <div class="small">Altura: <span id="rbtHeight">0</span> • Rotações: <span id="rbtRot">0</span></div>
+            </div>
+            <div class="canvasBox" id="rbtBox">
+              <svg id="rbtSvg" width="100%" height="340" viewBox="0 0 1200 360"
+                preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:12px;align-items:center;justify-content:space-between">
+          <div>
+            <button id="playInsertAnim" class="btn ghost">Animar Última Inserção</button>
+            <span class="small" style="margin-left:8px">destaque de rotações (curto)</span>
+          </div>
+          <div>
+            <button id="clearBtn" class="btn ghost">Limpar Estoque</button>
+            <button id="seedBtn" class="btn">Popular Demo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
